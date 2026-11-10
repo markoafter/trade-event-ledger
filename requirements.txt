@@ -1,0 +1,2 @@
+# Python 3.11 or later.
+# The application and tests use only the Python standard library.
