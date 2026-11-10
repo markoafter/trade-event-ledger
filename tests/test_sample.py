@@ -2,12 +2,12 @@ import unittest
 from dataclasses import replace
 from pathlib import Path
 
-from practice.trade_ledger.ingestion import RejectedLine, read_events
-from practice.trade_ledger.ledger import TradeLedger
-from practice.trade_ledger.models import TradeEvent
+from trade_ledger.ingestion import RejectedLine, read_events
+from trade_ledger.ledger import TradeLedger
+from trade_ledger.models import TradeEvent
 
 
-SAMPLE = Path(__file__).resolve().parents[2] / "trade-events-sample.jsonl"
+SAMPLE = Path(__file__).resolve().parents[1] / "trade-events-sample.jsonl"
 
 
 class TradeEventsSampleTest(unittest.TestCase):

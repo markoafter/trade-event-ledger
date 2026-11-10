@@ -2,13 +2,13 @@ import unittest
 from io import StringIO
 from pathlib import Path
 
-from practice.trade_ledger.ingestion import read_events
-from practice.trade_ledger.ledger import TradeLedger
-from practice.trade_ledger.models import TradeEvent
-from practice.trade_ledger.reconciliation import PositionBreak, read_clearing_positions, reconcile
+from trade_ledger.ingestion import read_events
+from trade_ledger.ledger import TradeLedger
+from trade_ledger.models import TradeEvent
+from trade_ledger.reconciliation import PositionBreak, read_clearing_positions, reconcile
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class ReconciliationTest(unittest.TestCase):

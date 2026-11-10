@@ -1,2 +1,6 @@
 # Python 3.11 or later.
-# The application and tests use only the Python standard library.
+fastapi==0.156.6
+uvicorn==0.54.0
+
+# HTTP integration tests
+httpx2==2.16.0

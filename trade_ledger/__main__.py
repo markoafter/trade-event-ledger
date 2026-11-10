@@ -2,8 +2,8 @@ import argparse
 import sys
 from pathlib import Path
 
-from .ingestion import RejectedLine, read_events
-from .ledger import LedgerConflict, TradeLedger
+from .ingestion import RejectedLine
+from .loading import load_ledger
 
 
 def _display_field(value: str) -> str:
@@ -12,22 +12,17 @@ def _display_field(value: str) -> str:
     return ascii(value)
 
 
+def _report_rejection(record: RejectedLine) -> None:
+    print(f"line {record.line_number}: {record.reason}", file=sys.stderr)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Print net positions from a trade events file.")
     parser.add_argument("file", type=Path, help="path to the JSONL file")
     args = parser.parse_args()
-    ledger = TradeLedger()
-
     try:
         with args.file.open("rb") as source:
-            for line_number, record in enumerate(read_events(source), start=1):
-                if isinstance(record, RejectedLine):
-                    print(f"line {record.line_number}: {record.reason}", file=sys.stderr)
-                    continue
-                try:
-                    ledger.apply(record)
-                except LedgerConflict as error:
-                    print(f"line {line_number}: {error}", file=sys.stderr)
+            ledger = load_ledger(source, _report_rejection)
     except OSError as error:
         print(f"{ascii(str(args.file))}: {error.strerror}", file=sys.stderr)
         return 1
