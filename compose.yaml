@@ -1,0 +1,5 @@
+services:
+  ledger:
+    build: .
+    ports:
+      - "127.0.0.1:${LEDGER_PORT:-8000}:8000"
